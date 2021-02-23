@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinkedIn", "ClinkedIn\ClinkedIn.csproj", "{F73B431B-9A50-40A8-9CD6-B0B89545A972}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F73B431B-9A50-40A8-9CD6-B0B89545A972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73B431B-9A50-40A8-9CD6-B0B89545A972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73B431B-9A50-40A8-9CD6-B0B89545A972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73B431B-9A50-40A8-9CD6-B0B89545A972}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6F3A30C-9C38-43CC-A5C4-094EA38990E9}
+	EndGlobalSection
+EndGlobal
