@@ -43,6 +43,40 @@ namespace ClinkedIn.Controllers
             return Ok(clinker);
         }
 
+        //GetListOfMyServices /api/clinker/services/serialNumber
+        [HttpGet("services/{serialNumber}")]
+        public IActionResult GetListOfMyServices(int serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker == null)
+            {
+                return NotFound("This clinker does not exist");
+            }
+            if (clinker.Services.Count == 0)
+            {
+                return NotFound($"{clinker.Name} does not have any services");
+            }
+
+            return Ok(clinker.Services);
+        }
+
+        //GetListOfAllServices /api/clinker/services
+        [HttpGet("services")]
+        public IActionResult GetListOfAllServices()
+        {
+            return Ok(_repo.GetAllServices());
+        }
+
+        //AddService /api/clinker/services/serialNumber
+        [HttpPut("services/{serialNumber}")]
+        public IActionResult AddService(int serialNumber, List<string> services)
+        {
+            var clinker = _repo.Get(serialNumber);
+            clinker.Services.AddRange(services);
+            return Ok(clinker.Services);
+
+        }
+
         // API Post to /api/Clinkers
         [HttpPost]
         public IActionResult AddAClinker(Clinker clinker)
@@ -91,5 +125,5 @@ namespace ClinkedIn.Controllers
 
 
 
+        }
     }
-}
