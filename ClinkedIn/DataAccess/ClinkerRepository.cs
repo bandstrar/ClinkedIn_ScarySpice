@@ -33,6 +33,14 @@ namespace ClinkedIn.DataAccess
             clinker.SerialNumber = biggestExistingInt + 1;
             _clinkers.Add(clinker);
         }
+
+        public void AddFriend(int serialNumber, int friendId)
+        {
+            var clinker = Get(serialNumber);
+            var friend = Get(friendId);
+
+            clinker.Friends.Add(friend);
+        }
     }
 
 }

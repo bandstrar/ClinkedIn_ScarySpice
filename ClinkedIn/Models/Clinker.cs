@@ -11,7 +11,7 @@ namespace ClinkedIn.Models
         public string Name { get; set; }
         public List<string> Interests { get; set; }
         public List<string> Services { get; set; }
-        public List<Clinker> Friends { get; set; }
-        public List<Clinker> Enemies { get; set; }
+        public List<Clinker> Friends { get; set; } = new List<Clinker>();
+        public List<Clinker> Enemies { get; set; } = new List<Clinker>();
     }
 }

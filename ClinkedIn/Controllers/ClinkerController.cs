@@ -51,6 +51,33 @@ namespace ClinkedIn.Controllers
             return Created($"/api/Clinker/{clinker.SerialNumber}", clinker);
         }
 
+        // Show all Clinker's friends
+        [HttpGet("{serialNumber}/friends")]
+        public IActionResult GetFriends(int serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber);
+
+            if (clinker == null)
+            {
+                return NotFound("This clinker does not exist");
+            }
+            else if (clinker.Friends == null || clinker.Friends.Count == 0)
+            {
+                return NotFound("This clinker does not have any friends. How sad.");
+            }
+            return Ok(clinker.Friends);
+        }
+
+        [HttpPut("{serialNumber}/friends/addFriend/{friendId}")]
+        public IActionResult AddFriend(int serialNumber, int friendId)
+        {
+            var clinker = _repo.Get(serialNumber);
+
+            _repo.AddFriend(serialNumber, friendId);
+
+            return Ok(clinker.Friends);
+        }
+
 
     }
 }
