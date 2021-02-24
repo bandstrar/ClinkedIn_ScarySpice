@@ -43,6 +43,23 @@ namespace ClinkedIn.Controllers
             return Ok(clinker);
         }
 
+        //GetListOfMyServices /api/clinker/{serialNumber}/services
+        [HttpGet("{serialNumber}/services")]
+        public IActionResult GetListOfMyServices(int serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker == null)
+            {
+                return NotFound("This clinker does not exist");
+            }
+            if (clinker.Services.Count == 0)
+            {
+                return NotFound($"{clinker.Name} does not have any services");
+            }
+
+            return Ok(clinker.Services);
+        }
+
         // API Post to /api/Clinkers
         [HttpPost]
         public IActionResult AddAClinker(Clinker clinker)
