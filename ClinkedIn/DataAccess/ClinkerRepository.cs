@@ -1,8 +1,6 @@
 ﻿using ClinkedIn.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClinkedIn.DataAccess
 {
@@ -32,6 +30,25 @@ namespace ClinkedIn.DataAccess
             var biggestExistingInt = _clinkers.Max(clinker => clinker.SerialNumber);
             clinker.SerialNumber = biggestExistingInt + 1;
             _clinkers.Add(clinker);
+        }
+
+        public Dictionary<string,List<string>> GetAllInterests()
+        {
+            var myReturnList = new Dictionary<string, List<string>>();
+            foreach(var clinker in _clinkers)
+            {
+                if (clinker.Interests != null) myReturnList.Add(clinker.Name, clinker.Interests);
+            }
+            return myReturnList;
+        }
+        public Dictionary<string, List<string>> GetAllServices()
+        {
+            var allServices = new Dictionary<string, List<string>>();
+            foreach (var clinker in _clinkers)
+            {
+                if (clinker.Services != null) allServices.Add(clinker.Name, clinker.Services);
+            }
+            return allServices;
         }
 
         public void AddFriend(int serialNumber, int friendId)
