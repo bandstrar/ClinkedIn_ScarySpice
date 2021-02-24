@@ -50,6 +50,18 @@ namespace ClinkedIn.DataAccess
             }
             return allServices;
         }
+
+        public void AddFriend(int serialNumber, int friendId)
+        {
+            var clinker = Get(serialNumber);
+            var friend = Get(friendId);
+
+            if (!clinker.Friends.Contains(friend))
+            {
+                clinker.Friends.Add(friend);
+            }
+            
+        }
     }
 
 }
