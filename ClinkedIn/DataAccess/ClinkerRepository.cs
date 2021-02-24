@@ -51,6 +51,18 @@ namespace ClinkedIn.DataAccess
             return allServices;
         }
 
+        // Crew: Friends of Friends
+        public Dictionary<Clinker, List<Clinker>> GetFriendsOfFriends(Clinker clinker)
+        {
+            var friendsOfFriends = new Dictionary<Clinker, List<Clinker>>();
+            var clinkersFriends = clinker.Friends;
+            foreach(var clinkerfriend in clinkersFriends)
+            {
+                friendsOfFriends.Add(clinkerfriend, clinkerfriend.Friends);
+            }
+           
+            return friendsOfFriends;
+        }
         public void AddFriend(int serialNumber, int friendId)
         {
             var clinker = Get(serialNumber);

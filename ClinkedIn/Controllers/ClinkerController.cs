@@ -35,7 +35,7 @@ namespace ClinkedIn.Controllers
         {
             var clinker = _repo.Get(serialNumber);
 
-            if(clinker == null)
+            if (clinker == null)
             {
                 return NotFound("This clinker does not exist");
             }
@@ -137,7 +137,7 @@ namespace ClinkedIn.Controllers
                 return NotFound("This clinker exists but does not have any interests yet.");
             }
             else return Ok(clinker.Interests);
-            
+
         }
 
         // Add an interest to a user
@@ -150,7 +150,19 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Interests);
         }
 
+        // Crew: Returns friends of friends
 
+        [HttpGet("{serialNumber}/friends/crew")]
+        public IActionResult FriendsOfFriends(int serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker.Friends == null || clinker.Friends.Count == 0)
+            {
+                return NotFound("This clinker does not have any friends. How sad.");
+            }
+            var friendsOfFriends = _repo.GetFriendsOfFriends(clinker);
+            return Ok(friendsOfFriends);
 
         }
     }
+}
