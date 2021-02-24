@@ -85,8 +85,8 @@ namespace ClinkedIn.Controllers
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
-            clinker.Interests = interests;
-            return Ok(interests);
+            clinker.Interests.AddRange(interests);
+            return Ok(clinker.Interests);
         }
 
 
