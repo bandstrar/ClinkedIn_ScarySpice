@@ -41,6 +41,15 @@ namespace ClinkedIn.DataAccess
             }
             return myReturnList;
         }
+        public Dictionary<string, List<string>> GetAllServices()
+        {
+            var allServices = new Dictionary<string, List<string>>();
+            foreach (var clinker in _clinkers)
+            {
+                if (clinker.Services != null) allServices.Add(clinker.Name, clinker.Services);
+            }
+            return allServices;
+        }
     }
 
 }

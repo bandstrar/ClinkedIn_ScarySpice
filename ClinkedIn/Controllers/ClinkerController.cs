@@ -44,7 +44,7 @@ namespace ClinkedIn.Controllers
         }
 
         //GetListOfMyServices /api/clinker/{serialNumber}/services
-        [HttpGet("{serialNumber}/services")]
+        [HttpGet("services/{serialNumber}")]
         public IActionResult GetListOfMyServices(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
@@ -59,6 +59,14 @@ namespace ClinkedIn.Controllers
 
             return Ok(clinker.Services);
         }
+
+        //GetListOfAllServices /api/clinker/services
+        [HttpGet("services")]
+        public IActionResult GetListOfAllServices()
+        {
+            return Ok(_repo.GetAllServices());
+        }
+
 
         // API Post to /api/Clinkers
         [HttpPost]
