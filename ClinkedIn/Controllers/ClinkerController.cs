@@ -43,7 +43,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker);
         }
 
-        //GetListOfMyServices /api/clinker/{serialNumber}/services
+        //GetListOfMyServices /api/clinker/services/serialNumber
         [HttpGet("services/{serialNumber}")]
         public IActionResult GetListOfMyServices(int serialNumber)
         {
@@ -67,9 +67,15 @@ namespace ClinkedIn.Controllers
             return Ok(_repo.GetAllServices());
         }
 
+        //AddService /api/clinker/services/serialNumber
+        [HttpPut("services/{serialNumber}")]
+        public IActionResult AddService(int serialNumber, List<string> services)
+        {
+            var clinker = _repo.Get(serialNumber);
+            clinker.Services.AddRange(services);
+            return Ok(clinker.Services);
 
-        [HttpPost("services/{serialNumber}")]
-        public IActionResult AddService()
+        }
 
         // API Post to /api/Clinkers
         [HttpPost]
@@ -113,11 +119,11 @@ namespace ClinkedIn.Controllers
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
-            clinker.Interests = interests;
-            return Ok(interests);
+            clinker.Interests.AddRange(interests);
+            return Ok(clinker.Interests);
         }
 
 
 
+        }
     }
-}
