@@ -39,7 +39,11 @@ namespace ClinkedIn.DataAccess
             var clinker = Get(serialNumber);
             var friend = Get(friendId);
 
-            clinker.Friends.Add(friend);
+            if (!clinker.Friends.Contains(friend))
+            {
+                clinker.Friends.Add(friend);
+            }
+            
         }
     }
 
