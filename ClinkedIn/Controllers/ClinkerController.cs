@@ -69,5 +69,44 @@ namespace ClinkedIn.Controllers
         }
 
 
+        // GET all the users and their interests
+        // GET All + return only names and interests
+        [HttpGet("interests")]
+        public IActionResult GetAllClinkersInterests()
+        {
+            return Ok(_repo.GetAllInterests());
+        }
+
+        // Get all User's interests
+        // GET /api/Clinker/{serialNumber}/interests
+
+        [HttpGet("interests/{serialNumber}")]
+        public IActionResult GetInterestsById(int serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker == null)
+            {
+                return NotFound("This clinker does not exist");
+            }
+            else if (clinker.Interests == null)
+            {
+                return NotFound("This clinker exists but does not have any interests yet.");
+            }
+            else return Ok(clinker.Interests);
+            
+        }
+
+        // Add an interest to a user
+        // PUT /api/Clinkers/{serialNumber} {interest = }
+        [HttpPut("interests/{serialNumber}")]
+        public IActionResult EditInterest(int serialNumber, List<string> interests)
+        {
+            var clinker = _repo.Get(serialNumber);
+            clinker.Interests = interests;
+            return Ok(interests);
+        }
+
+
+
     }
 }
