@@ -68,6 +68,9 @@ namespace ClinkedIn.Controllers
         }
 
 
+        [HttpPost("services/{serialNumber}")]
+        public IActionResult AddService()
+
         // API Post to /api/Clinkers
         [HttpPost]
         public IActionResult AddAClinker(Clinker clinker)
@@ -110,8 +113,8 @@ namespace ClinkedIn.Controllers
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
-            clinker.Interests.AddRange(interests);
-            return Ok(clinker.Interests);
+            clinker.Interests = interests;
+            return Ok(interests);
         }
 
 
