@@ -37,15 +37,22 @@ namespace ClinkedIn.DataAccess
             _clinkers.Add(clinker);
         }
 
-        public Dictionary<string,List<string>> GetAllInterests()
+        public Dictionary<string, List<string>> GetAllInterests()
         {
             var myReturnList = new Dictionary<string, List<string>>();
-            foreach(var clinker in _clinkers)
+            foreach (var clinker in _clinkers)
             {
                 if (clinker.Interests != null) myReturnList.Add(clinker.Name, clinker.Interests);
             }
             return myReturnList;
         }
+
+        public void removeInterest(int serialNumber, List<string> interest)
+        {
+            var clinker = Get(serialNumber);
+            clinker.Interests.Remove(interest[0]);
+        }
+
         public Dictionary<string, List<string>> GetAllServices()
         {
             var allServices = new Dictionary<string, List<string>>();
@@ -61,11 +68,11 @@ namespace ClinkedIn.DataAccess
         {
             var friendsOfFriends = new Dictionary<Clinker, List<Clinker>>();
             var clinkersFriends = clinker.Friends;
-            foreach(var clinkerfriend in clinkersFriends)
+            foreach (var clinkerfriend in clinkersFriends)
             {
                 friendsOfFriends.Add(clinkerfriend, clinkerfriend.Friends);
             }
-           
+
             return friendsOfFriends;
         }
         public void AddFriend(int serialNumber, int friendId)
@@ -81,7 +88,7 @@ namespace ClinkedIn.DataAccess
             {
                 friend.Friends.Add(clinker);
             }
-            
+
         }
 
         public void AddEnemy(int serialNumber, int enemyId)
