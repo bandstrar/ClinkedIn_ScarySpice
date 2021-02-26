@@ -14,7 +14,7 @@ namespace ClinkedIn.DataAccess
             new Clinker {SerialNumber = 4, Name = "Fred Flintstone", Interests = new List<string> {"DIY Vehicles", "Rock bowling" }, Services = new List<string> {"Shank sharpening", "Selling exotic animals" } },
             new Clinker {SerialNumber = 5, Name = "Clyde Barrow", Interests = new List<string> {"Jazz Music", "Robbery" }, Services = new List<string> {"Hideouts", "Apple Pie" } },
             new Clinker {SerialNumber = 6, Name = "Frank Abagnale", Interests = new List<string> {"Traveling", "Fine food" }, Services = new List<string> {"Disgusies", "Counterfeiting" } },
-            new Clinker {SerialNumber = 4, Name = "Charlie Manson", Interests = new List<string> {"Rock N Roll", "Knives" }, Services = new List<string> {"Organizing Retreats", "Face tattoos" } }
+            new Clinker {SerialNumber = 7, Name = "Charlie Manson", Interests = new List<string> {"Rock N Roll", "Knives" }, Services = new List<string> {"Organizing Retreats", "Face tattoos" } }
         };
 
         public List<Clinker> GetAll()
