@@ -112,6 +112,34 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Friends);
         }
 
+        // Show all Clinker's enemies
+        [HttpGet("{serialNumber}/enemies")]
+        public IActionResult GetEnemies(int serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber);
+
+            if (clinker == null)
+            {
+                return NotFound("This clinker does not exist");
+            }
+            else if (clinker.Enemies == null || clinker.Enemies.Count == 0)
+            {
+                return NotFound("This clinker does not have any enemies. Likely story.");
+            }
+            return Ok(clinker.Enemies);
+        }
+
+        // Add Clinker enemy
+
+        [HttpPut("{serialNumber}/enemies/addEnemy/{enemyId}")]
+        public IActionResult AddEnemy(int serialNumber, int enemyId)
+        {
+            var clinker = _repo.Get(serialNumber);
+
+            _repo.AddEnemy(serialNumber, enemyId);
+
+            return Ok(clinker.Enemies);
+        }
 
         // GET all the users and their interests
         // GET All + return only names and interests

@@ -1,4 +1,4 @@
-﻿using ClinkedIn.Models;
+using ClinkedIn.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -82,6 +82,21 @@ namespace ClinkedIn.DataAccess
                 friend.Friends.Add(clinker);
             }
             
+        }
+
+        public void AddEnemy(int serialNumber, int enemyId)
+        {
+            var clinker = Get(serialNumber);
+            var enemy = Get(enemyId);
+
+            if (!clinker.Enemies.Contains(enemy))
+            {
+                clinker.Enemies.Add(enemy);
+            }
+            if (!enemy.Enemies.Contains(clinker))
+            {
+                enemy.Enemies.Add(clinker);
+            }
         }
     }
 
