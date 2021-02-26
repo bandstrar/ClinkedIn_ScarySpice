@@ -74,6 +74,18 @@ namespace ClinkedIn.DataAccess
             }
             
         }
+
+        public void AddEnemy(int serialNumber, int enemyId)
+        {
+            var clinker = Get(serialNumber);
+            var enemy = Get(enemyId);
+
+            if (!clinker.Enemies.Contains(enemy))
+            {
+                clinker.Enemies.Add(enemy);
+            }
+
+        }
     }
 
 }
