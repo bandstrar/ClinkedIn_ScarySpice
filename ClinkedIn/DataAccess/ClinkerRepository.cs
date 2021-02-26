@@ -11,10 +11,7 @@ namespace ClinkedIn.DataAccess
             new Clinker {SerialNumber = 1, Name = "Joe Exotic", Interests = new List<string> {"Exotic animals", "Cowboy hats" }, Services = new List<string> {"Relationship advice", "Hiring hitmen" } },
             new Clinker {SerialNumber = 2, Name = "Al Capone", Interests = new List<string> {"Tax evasion", "Al Pacino movies" }, Services = new List<string> {"Hiring bodyguards", "Smuggling goods" } },
             new Clinker {SerialNumber = 3, Name = "John Dillinger", Interests = new List<string> {"Banks", "Broads" }, Services = new List<string> {"Making escape plans", "Stealing cafeteria food" } },
-            new Clinker {SerialNumber = 4, Name = "Fred Flintstone", Interests = new List<string> {"DIY Vehicles", "Rock bowling" }, Services = new List<string> {"Shank sharpening", "Selling exotic animals" } },
-            new Clinker {SerialNumber = 5, Name = "Clyde Barrow", Interests = new List<string> {"Jazz Music", "Robbery" }, Services = new List<string> {"Hideouts", "Apple Pie" } },
-            new Clinker {SerialNumber = 6, Name = "Frank Abagnale", Interests = new List<string> {"Traveling", "Fine food" }, Services = new List<string> {"Disgusies", "Counterfeiting" } },
-            new Clinker {SerialNumber = 7, Name = "Charlie Manson", Interests = new List<string> {"Rock N Roll", "Knives" }, Services = new List<string> {"Organizing Retreats", "Face tattoos" } }
+            new Clinker {SerialNumber = 4, Name = "Fred Flintstone", Interests = new List<string> {"DIY Vehicles", "Rock bowling" }, Services = new List<string> {"Shank sharpening", "Selling exotic animals" } }
         };
 
         public List<Clinker> GetAll()
