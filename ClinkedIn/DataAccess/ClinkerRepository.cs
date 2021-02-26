@@ -44,6 +44,13 @@ namespace ClinkedIn.DataAccess
             }
             return myReturnList;
         }
+
+        public void removeInterest(int serialNumber, List<string> interest)
+        {
+            var clinker = Get(serialNumber);
+            clinker.Interests.Remove(interest[0]);
+        }
+
         public Dictionary<string, List<string>> GetAllServices()
         {
             var allServices = new Dictionary<string, List<string>>();

@@ -150,6 +150,20 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Interests);
         }
 
+        [HttpPut("interests/{serialNumber}/removeInterest")]
+        public IActionResult DeleteInterest(int serialNumber, List<string> interests)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if(clinker.Interests.Contains(interests[0])) {
+                _repo.removeInterest(serialNumber, interests);
+                return Ok(clinker.Interests);
+            } else
+            {
+                return NotFound("This interest is not in the clinkers interest.");
+            }
+            
+        }
+
         // Crew: Returns friends of friends
 
         [HttpGet("{serialNumber}/friends/crew")]
