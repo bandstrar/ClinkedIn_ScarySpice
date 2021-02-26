@@ -193,6 +193,27 @@ namespace ClinkedIn.Controllers
 
         }
 
-        
+        //editing a service
+        [HttpDelete("services/{serialNumber}/{service}")]
+        public IActionResult EditService(int serialNumber, string service)
+        {
+            var clinker = _repo.Get(serialNumber);
+            var input = service.ToLower();
+            
+            if (clinker.Services == null)
+            {
+                return NotFound($"{clinker.Name} has no services");
+            }
+
+            for (int i = 0; i < clinker.Services.Count; i++)
+            {
+                var serviceToDelete = clinker.Services[i].Replace(' ', '-').ToLower();
+                if (serviceToDelete.Contains($"{input}"))
+                {
+                    clinker.Services.RemoveAt(i);
+                }
+            }
+            return Ok(clinker.Services);
+        }
     }
 }
