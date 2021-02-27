@@ -121,12 +121,12 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Friends);
         }
 
-        [HttpPut("{serialNumber}/friends/addFriend/{friendId}")]
-        public IActionResult AddFriend(int serialNumber, int friendId)
+        [HttpPut("{serialNumber}/friends/addFriend")]
+        public IActionResult AddFriend(int serialNumber, List<int> friendId)
         {
             var clinker = _repo.Get(serialNumber);
 
-            _repo.AddFriend(serialNumber, friendId);
+            _repo.AddFriend(serialNumber, friendId[0]);
 
             return Ok(clinker.Friends);
         }
