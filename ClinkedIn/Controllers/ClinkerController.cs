@@ -64,7 +64,7 @@ namespace ClinkedIn.Controllers
         }
 
         //GetListOfMyServices /api/clinker/services/serialNumber
-        [HttpGet("services/{serialNumber}")]
+        [HttpGet("{serialNumber}/services")]
         public IActionResult GetListOfMyServices(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
@@ -85,16 +85,6 @@ namespace ClinkedIn.Controllers
         public IActionResult GetListOfAllServices()
         {
             return Ok(_repo.GetAllServices());
-        }
-
-        //AddService /api/clinker/services/serialNumber
-        [HttpPut("services/{serialNumber}")]
-        public IActionResult AddService(int serialNumber, List<string> services)
-        {
-            var clinker = _repo.Get(serialNumber);
-            clinker.Services.AddRange(services);
-            return Ok(clinker.Services);
-
         }
 
         // API Post to /api/Clinkers
@@ -173,7 +163,7 @@ namespace ClinkedIn.Controllers
         // Get all User's interests
         // GET /api/Clinker/{serialNumber}/interests
 
-        [HttpGet("interests/{serialNumber}")]
+        [HttpGet("{serialNumber}/interests")]
         public IActionResult GetInterestsById(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
@@ -190,8 +180,8 @@ namespace ClinkedIn.Controllers
         }
 
         // Add an interest to a user
-        // PUT /api/Clinkers/{serialNumber} {interest = }
-        [HttpPut("interests/{serialNumber}")]
+        // PUT /api/Clinkers/{serialNumber} + Interest Body / This is case insensitive
+        [HttpPut("{serialNumber}/interests")]
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
@@ -205,7 +195,8 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Interests);
         }
 
-        [HttpPut("interests/{serialNumber}/removeInterest")]
+        //Put /api/Clinkers/{serialNumber}/removeInterest + Interest Body / This is case insensitive
+        [HttpPut("{serialNumber}/interests/removeInterest")]
         public IActionResult DeleteInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
@@ -218,6 +209,40 @@ namespace ClinkedIn.Controllers
             else
             {
                 return NotFound("This interest is not in the clinkers interest.");
+            }
+
+        }
+
+        // Add an Service to a user
+        // PUT /api/Clinkers/{serialNumber} + Service Body / This is case insensitive
+        [HttpPut("{serialNumber}/services")]
+        public IActionResult EditService(int serialNumber, List<string> services)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker.Services.FindAll(x => x.IndexOf(services[0],
+                       StringComparison.OrdinalIgnoreCase) >= 0).Count == 0)
+
+            {
+                clinker.Services.AddRange(services);
+            }
+
+            return Ok(clinker.Services);
+        }
+
+        //Put /api/Clinkers/{serialNumber}/removeService + Service Body / This is case insensitive
+        [HttpPut("{serialNumber}/services/removeService")]
+        public IActionResult DeleteService(int serialNumber, List<string> services)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker.Services.FindAll(x => x.IndexOf(services[0],
+                       StringComparison.OrdinalIgnoreCase) >= 0).Count > 0)
+            {
+                _repo.removeService(serialNumber, services[0]);
+                return Ok(clinker.Services);
+            }
+            else
+            {
+                return NotFound("This Service is not in the clinkers Service.");
             }
 
         }
