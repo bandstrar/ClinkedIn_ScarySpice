@@ -20,7 +20,7 @@ namespace ClinkedIn.Controllers
             _repo = new ClinkerRepository();
         }
 
-        //GetAllClinkers /api/Clinkers/warden/allClinkers
+        //GetAllClinkers /api/Clinker/warden/allClinkers
 
         [HttpGet("warden/allClinkers")]
         public IActionResult GetAllClinkers()
@@ -29,6 +29,8 @@ namespace ClinkedIn.Controllers
         }
 
         //Delete clinker from list of Clinkers
+        // /api/Clinker/warden/deleteClinker
+
         [HttpDelete("warden/deleteClinker")]
         public IActionResult DeleteClinker(List<int> serialNumber)
         {
@@ -48,7 +50,7 @@ namespace ClinkedIn.Controllers
             
         }
 
-        //GetClinker /api/Clinkers/{serialNumber}
+        //GetClinker /api/Clinker/{serialNumber}
         //            /api/Clinkers/1
         [HttpGet("{serialNumber}")]
         public IActionResult GetClinker(int serialNumber)
@@ -87,7 +89,7 @@ namespace ClinkedIn.Controllers
             return Ok(_repo.GetAllServices());
         }
 
-        // API Post to /api/Clinkers
+        // API Post to /api/Clinker
         [HttpPost]
         public IActionResult AddAClinker(Clinker clinker)
         {
@@ -96,6 +98,8 @@ namespace ClinkedIn.Controllers
         }
 
         // Show all Clinker's friends
+        // /api/clinker/{serialNumber}/friends
+
         [HttpGet("{serialNumber}/friends")]
         public IActionResult GetFriends(int serialNumber)
         {
@@ -112,6 +116,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Friends);
         }
 
+        // /api/clinker/{serialNumber}/friends/addFriend
         //Add Clinker friend
         [HttpPut("{serialNumber}/friends/addFriend")]
         public IActionResult AddFriend(int serialNumber, List<int> friendId)
@@ -123,6 +128,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Friends);
         }
 
+        // /api/clinker/{serialNumber}/enemies
         // Show all Clinker's enemies
         [HttpGet("{serialNumber}/enemies")]
         public IActionResult GetEnemies(int serialNumber)
@@ -140,6 +146,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Enemies);
         }
 
+        //  /api/clinker/{serialNumber}/enemies/addEnemy
         // Add Clinker enemy
 
         [HttpPut("{serialNumber}/enemies/addEnemy")]
@@ -154,6 +161,7 @@ namespace ClinkedIn.Controllers
 
         // GET all the users and their interests
         // GET All + return only names and interests
+        // /api/Clinker/interests
         [HttpGet("interests")]
         public IActionResult GetAllClinkersInterests()
         {
@@ -180,7 +188,7 @@ namespace ClinkedIn.Controllers
         }
 
         // Add an interest to a user
-        // PUT /api/Clinkers/{serialNumber} + Interest Body / This is case insensitive
+        // PUT /api/Clinker/{serialNumber}/interests + Interest Body / This is case insensitive
         [HttpPut("{serialNumber}/interests")]
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
@@ -195,7 +203,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Interests);
         }
 
-        //Put /api/Clinkers/{serialNumber}/removeInterest + Interest Body / This is case insensitive
+        //Put /api/Clinker/{serialNumber}/interests/removeInterest + Interest Body / This is case insensitive
         [HttpPut("{serialNumber}/interests/removeInterest")]
         public IActionResult DeleteInterest(int serialNumber, List<string> interests)
         {
@@ -214,7 +222,7 @@ namespace ClinkedIn.Controllers
         }
 
         // Add an Service to a user
-        // PUT /api/Clinkers/{serialNumber} + Service Body / This is case insensitive
+        // PUT /api/Clinker/{serialNumber}/services + Service Body / This is case insensitive
         [HttpPut("{serialNumber}/services")]
         public IActionResult EditService(int serialNumber, List<string> services)
         {
@@ -229,7 +237,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Services);
         }
 
-        //Put /api/Clinkers/{serialNumber}/removeService + Service Body / This is case insensitive
+        //Put /api/Clinker/{serialNumber}/services/removeService + Service Body / This is case insensitive
         [HttpPut("{serialNumber}/services/removeService")]
         public IActionResult DeleteService(int serialNumber, List<string> services)
         {
@@ -248,6 +256,7 @@ namespace ClinkedIn.Controllers
         }
 
         // Crew: Returns friends of friends
+        // /api/Clinker/{serialNumber}/friends/crew
 
         [HttpGet("{serialNumber}/friends/crew")]
         public IActionResult FriendsOfFriends(int serialNumber)
@@ -263,6 +272,8 @@ namespace ClinkedIn.Controllers
         }
 
         // days remaining
+        // /api/Clinker/{serialNumber}/daysRemaining
+
         [HttpGet("{serialNumber}/daysRemaining")]
         public IActionResult DaysUntilFreedom(int serialNumber)
         {
