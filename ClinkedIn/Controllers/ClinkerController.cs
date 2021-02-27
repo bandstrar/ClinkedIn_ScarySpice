@@ -28,6 +28,7 @@ namespace ClinkedIn.Controllers
             return Ok(_repo.GetAll());
         }
 
+        //Delete clinker from list of Clinkers
         [HttpDelete("warden/deleteClinker")]
         public IActionResult DeleteClinker(List<int> serialNumber)
         {
@@ -121,6 +122,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Friends);
         }
 
+        //Add Clinker friend
         [HttpPut("{serialNumber}/friends/addFriend")]
         public IActionResult AddFriend(int serialNumber, List<int> friendId)
         {
@@ -150,12 +152,12 @@ namespace ClinkedIn.Controllers
 
         // Add Clinker enemy
 
-        [HttpPut("{serialNumber}/enemies/addEnemy/{enemyId}")]
-        public IActionResult AddEnemy(int serialNumber, int enemyId)
+        [HttpPut("{serialNumber}/enemies/addEnemy")]
+        public IActionResult AddEnemy(int serialNumber, List<int> enemyId)
         {
             var clinker = _repo.Get(serialNumber);
 
-            _repo.AddEnemy(serialNumber, enemyId);
+            _repo.AddEnemy(serialNumber, enemyId[0]);
 
             return Ok(clinker.Enemies);
         }
