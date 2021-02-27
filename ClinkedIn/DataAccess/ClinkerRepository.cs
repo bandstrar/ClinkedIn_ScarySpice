@@ -150,6 +150,8 @@ namespace ClinkedIn.DataAccess
                 RemoveEnemy(serialNumber, _clinkers[i].SerialNumber);
             }
         }
+
+
     }
 
 }

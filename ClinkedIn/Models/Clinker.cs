@@ -13,5 +13,6 @@ namespace ClinkedIn.Models
         public List<string> Services { get; set; }
         public List<Clinker> Friends { get; set; } = new List<Clinker>();
         public List<Clinker> Enemies { get; set; } = new List<Clinker>();
+        public int DaysRemaining { get; set; }
     }
 }
