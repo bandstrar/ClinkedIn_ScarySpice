@@ -1,6 +1,7 @@
 using ClinkedIn.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ClinkedIn.DataAccess
 {
@@ -47,10 +48,10 @@ namespace ClinkedIn.DataAccess
             return myReturnList;
         }
 
-        public void removeInterest(int serialNumber, List<string> interest)
+        public void removeInterest(int serialNumber, string interest)
         {
             var clinker = Get(serialNumber);
-            clinker.Interests.Remove(interest[0]);
+            clinker.Interests.RemoveAt(clinker.Interests.FindIndex(n => n.Equals(interest, StringComparison.OrdinalIgnoreCase)));
         }
 
         public Dictionary<string, List<string>> GetAllServices()
