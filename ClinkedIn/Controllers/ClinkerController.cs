@@ -86,16 +86,6 @@ namespace ClinkedIn.Controllers
             return Ok(_repo.GetAllServices());
         }
 
-        //AddService /api/clinker/services/serialNumber
-        [HttpPut("services/{serialNumber}")]
-        public IActionResult AddService(int serialNumber, List<string> services)
-        {
-            var clinker = _repo.Get(serialNumber);
-            clinker.Services.AddRange(services);
-            return Ok(clinker.Services);
-
-        }
-
         // API Post to /api/Clinkers
         [HttpPost]
         public IActionResult AddAClinker(Clinker clinker)
@@ -188,7 +178,7 @@ namespace ClinkedIn.Controllers
         }
 
         // Add an interest to a user
-        // PUT /api/Clinkers/{serialNumber} {interest = }
+        // PUT /api/Clinkers/{serialNumber} + Interest Body / This is case insensitive
         [HttpPut("interests/{serialNumber}")]
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
@@ -203,6 +193,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker.Interests);
         }
 
+        //Put /api/Clinkers/{serialNumber}/removeInterest + Interest Body / This is case insensitive
         [HttpPut("interests/{serialNumber}/removeInterest")]
         public IActionResult DeleteInterest(int serialNumber, List<string> interests)
         {
@@ -216,6 +207,40 @@ namespace ClinkedIn.Controllers
             else
             {
                 return NotFound("This interest is not in the clinkers interest.");
+            }
+
+        }
+
+        // Add an Service to a user
+        // PUT /api/Clinkers/{serialNumber} + Service Body / This is case insensitive
+        [HttpPut("services/{serialNumber}")]
+        public IActionResult EditService(int serialNumber, List<string> services)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker.Services.FindAll(x => x.IndexOf(services[0],
+                       StringComparison.OrdinalIgnoreCase) >= 0).Count == 0)
+
+            {
+                clinker.Services.AddRange(services);
+            }
+
+            return Ok(clinker.Services);
+        }
+
+        //Put /api/Clinkers/{serialNumber}/removeService + Service Body / This is case insensitive
+        [HttpPut("services/{serialNumber}/removeService")]
+        public IActionResult DeleteService(int serialNumber, List<string> services)
+        {
+            var clinker = _repo.Get(serialNumber);
+            if (clinker.Services.FindAll(x => x.IndexOf(services[0],
+                       StringComparison.OrdinalIgnoreCase) >= 0).Count > 0)
+            {
+                _repo.removeService(serialNumber, services[0]);
+                return Ok(clinker.Services);
+            }
+            else
+            {
+                return NotFound("This Service is not in the clinkers Service.");
             }
 
         }

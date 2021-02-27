@@ -54,6 +54,12 @@ namespace ClinkedIn.DataAccess
             clinker.Interests.RemoveAt(clinker.Interests.FindIndex(n => n.Equals(interest, StringComparison.OrdinalIgnoreCase)));
         }
 
+        public void removeService(int serialNumber, string service)
+        {
+            var clinker = Get(serialNumber);
+            clinker.Services.RemoveAt(clinker.Services.FindIndex(n => n.Equals(service, StringComparison.OrdinalIgnoreCase)));
+        }
+
         public Dictionary<string, List<string>> GetAllServices()
         {
             var allServices = new Dictionary<string, List<string>>();
