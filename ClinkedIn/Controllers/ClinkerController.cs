@@ -174,7 +174,13 @@ namespace ClinkedIn.Controllers
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
-            clinker.Interests.AddRange(interests);
+            if (clinker.Interests.FindAll(x => x.IndexOf(interests[0],
+                       StringComparison.OrdinalIgnoreCase) >= 0).Count == 0)
+                
+            {
+                clinker.Interests.AddRange(interests);
+            }
+                
             return Ok(clinker.Interests);
         }
 
@@ -182,9 +188,10 @@ namespace ClinkedIn.Controllers
         public IActionResult DeleteInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
-            if (clinker.Interests.Contains(interests[0]))
+            if (clinker.Interests.FindAll(x => x.IndexOf(interests[0],
+                       StringComparison.OrdinalIgnoreCase) >= 0).Count > 0)
             {
-                _repo.removeInterest(serialNumber, interests);
+                _repo.removeInterest(serialNumber, interests[0]);
                 return Ok(clinker.Interests);
             }
             else
@@ -207,29 +214,6 @@ namespace ClinkedIn.Controllers
             var friendsOfFriends = _repo.GetFriendsOfFriends(clinker);
             return Ok(friendsOfFriends);
 
-        }
-
-        //editing a service
-        [HttpDelete("services/{serialNumber}/{service}")]
-        public IActionResult EditService(int serialNumber, string service)
-        {
-            var clinker = _repo.Get(serialNumber);
-            var input = service.ToLower();
-            
-            if (clinker.Services == null)
-            {
-                return NotFound($"{clinker.Name} has no services");
-            }
-
-            for (int i = 0; i < clinker.Services.Count; i++)
-            {
-                var serviceToDelete = clinker.Services[i].Replace(' ', '-').ToLower();
-                if (serviceToDelete.Contains($"{input}"))
-                {
-                    clinker.Services.RemoveAt(i);
-                }
-            }
-            return Ok(clinker.Services);
         }
     }
 }
