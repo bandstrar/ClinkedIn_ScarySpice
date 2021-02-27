@@ -20,12 +20,31 @@ namespace ClinkedIn.Controllers
             _repo = new ClinkerRepository();
         }
 
-        //GetAllClinkers /api/Clinkers
+        //GetAllClinkers /api/Clinkers/warden/allClinkers
 
-        [HttpGet]
+        [HttpGet("warden/allClinkers")]
         public IActionResult GetAllClinkers()
         {
             return Ok(_repo.GetAll());
+        }
+
+        [HttpDelete("warden/deleteClinker")]
+        public IActionResult DeleteClinker(List<int> serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber[0]);
+
+            if (clinker == null)
+            {
+                return NotFound("This clinker does not exist");
+            }
+            else
+            {
+                _repo.RemoveAll(serialNumber[0]);
+                _repo.RemoveClinker(serialNumber[0]);
+
+                return Ok(_repo.GetAll());
+            }
+            
         }
 
         //GetClinker /api/Clinkers/{serialNumber}
