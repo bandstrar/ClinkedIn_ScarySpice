@@ -261,5 +261,13 @@ namespace ClinkedIn.Controllers
             return Ok(friendsOfFriends);
 
         }
+
+        // days remaining
+        [HttpGet("{serialNumber}/daysRemaining")]
+        public IActionResult DaysUntilFreedom(int serialNumber)
+        {
+            var clinker = _repo.Get(serialNumber);
+            return Ok(clinker.DaysRemaining);
+        }
     }
 }
