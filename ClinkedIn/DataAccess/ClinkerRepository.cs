@@ -89,7 +89,6 @@ namespace ClinkedIn.DataAccess
             {
                 friend.Friends.Add(clinker);
             }
-
         }
 
         public void AddEnemy(int serialNumber, int enemyId)
@@ -104,6 +103,52 @@ namespace ClinkedIn.DataAccess
             if (!enemy.Enemies.Contains(clinker))
             {
                 enemy.Enemies.Add(clinker);
+            }
+        }
+
+        public void RemoveClinker(int serialNumber)
+        {
+            var clinker = Get(serialNumber);
+
+            _clinkers.Remove(clinker);
+        }
+
+        public void RemoveFriend(int serialNumber, int friendSerial)
+        {
+            var clinker = Get(serialNumber);
+            var friend = Get(friendSerial);
+
+            if (clinker.Friends.Contains(friend))
+            {
+                clinker.Friends.Remove(friend);
+            }
+            if (friend.Friends.Contains(clinker))
+            {
+                friend.Friends.Remove(clinker);
+            }
+        }
+
+        public void RemoveEnemy(int serialNumber, int enemySerial)
+        {
+            var clinker = Get(serialNumber);
+            var enemy = Get(enemySerial);
+
+            if (clinker.Enemies.Contains(enemy))
+            {
+                clinker.Enemies.Remove(enemy);
+            }
+            if (enemy.Enemies.Contains(clinker))
+            {
+                enemy.Enemies.Remove(clinker);
+            }
+        }
+
+        public void RemoveAll(int serialNumber)
+        {
+            for (var i = 0; i < _clinkers.Count; i++)
+            {
+                RemoveFriend(serialNumber, _clinkers[i].SerialNumber);
+                RemoveEnemy(serialNumber, _clinkers[i].SerialNumber);
             }
         }
     }
