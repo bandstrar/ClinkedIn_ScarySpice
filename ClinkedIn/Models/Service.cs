@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace ClinkedIn.Models
 {
-    public class Clinker
+    public class Service
     {
-        public int SerialNumber { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int DaysRemaining { get; set; }
     }
 }
