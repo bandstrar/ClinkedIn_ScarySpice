@@ -31,7 +31,7 @@ namespace ClinkedIn.Controllers
         //Delete clinker from list of Clinkers
         // /api/Clinker/warden/deleteClinker
 
-        [HttpDelete("warden/deleteClinker")]
+       /* [HttpDelete("warden/deleteClinker")]
         public IActionResult DeleteClinker(List<int> serialNumber)
         {
             var clinker = _repo.Get(serialNumber[0]);
@@ -48,14 +48,14 @@ namespace ClinkedIn.Controllers
                 return Ok(_repo.GetAll());
             }
             
-        }
+        }*/
 
         //GetClinker /api/Clinker/{serialNumber}
         //            /api/Clinkers/1
-        [HttpGet("{serialNumber}")]
-        public IActionResult GetClinker(int serialNumber)
+        [HttpGet("{id}")]
+        public IActionResult GetClinker(int id)
         {
-            var clinker = _repo.Get(serialNumber);
+            var clinker = _repo.Get(id);
 
             if (clinker == null)
             {
@@ -65,7 +65,7 @@ namespace ClinkedIn.Controllers
             return Ok(clinker);
         }
 
-        //GetListOfMyServices /api/clinker/services/serialNumber
+      /*  //GetListOfMyServices /api/clinker/services/serialNumber
         [HttpGet("{serialNumber}/services")]
         public IActionResult GetListOfMyServices(int serialNumber)
         {
@@ -269,7 +269,7 @@ namespace ClinkedIn.Controllers
             var friendsOfFriends = _repo.GetFriendsOfFriends(clinker);
             return Ok(friendsOfFriends);
 
-        }
+        }*/
 
         // days remaining
         // /api/Clinker/{serialNumber}/daysRemaining

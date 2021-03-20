@@ -12,15 +12,15 @@ namespace ClinkedIn.DataAccess
         const string ConnectionString = "Server=localhost;Database=ClinkedIn;Trusted_Connection=True;";
         static List<Clinker> _clinkers = new List<Clinker>
         {
-            new Clinker {SerialNumber = 1, Name = "Joe Exotic", DaysRemaining = 1 },
-            new Clinker {SerialNumber = 2, Name = "Al Capone", DaysRemaining = 12  },
-            new Clinker {SerialNumber = 3, Name = "John Dillinger", DaysRemaining = 1000  },
-            new Clinker {SerialNumber = 4, Name = "Fred Flintstone", DaysRemaining = 200  },
-            new Clinker {SerialNumber = 5, Name = "Clyde Barrow", DaysRemaining = 420  },
-            new Clinker {SerialNumber = 6, Name = "Frank Abagnale", DaysRemaining = 12983  },
-            new Clinker {SerialNumber = 7, Name = "Charlie Manson", DaysRemaining = 329  },
-            new Clinker {SerialNumber = 8, Name = "George Bluth", DaysRemaining = 2  },
-            new Clinker {SerialNumber = 9, Name = "Hannibal Lecter", DaysRemaining = 1  }
+            new Clinker {Id = 1, Name = "Joe Exotic", DaysRemaining = 1 },
+            new Clinker {Id = 2, Name = "Al Capone", DaysRemaining = 12  },
+            new Clinker {Id = 3, Name = "John Dillinger", DaysRemaining = 1000  },
+            new Clinker {Id = 4, Name = "Fred Flintstone", DaysRemaining = 200  },
+            new Clinker {Id = 5, Name = "Clyde Barrow", DaysRemaining = 420  },
+            new Clinker {Id = 6, Name = "Frank Abagnale", DaysRemaining = 12983  },
+            new Clinker {Id = 7, Name = "Charlie Manson", DaysRemaining = 329  },
+            new Clinker {Id = 8, Name = "George Bluth", DaysRemaining = 2  },
+            new Clinker {Id = 9, Name = "Hannibal Lecter", DaysRemaining = 1  }
         };
 
         public List<Clinker> GetAll()
@@ -32,20 +32,26 @@ namespace ClinkedIn.DataAccess
             return db.Query<Clinker>(sql).ToList();
         }
 
-        public Clinker Get(int serialNumber)
+        public Clinker Get(int id)
         {
-            var clinker = _clinkers.FirstOrDefault(c => c.SerialNumber == serialNumber);
+            using var db = new SqlConnection(ConnectionString);
+            var sql = @"Select *
+                        from Clinkers
+                        where Id = @id";
+
+            var clinker = db.QueryFirstOrDefault<Clinker>(sql, new { id = id });
+
             return clinker;
         }
 
         public void Add(Clinker clinker)
         {
-            var biggestExistingInt = _clinkers.Max(clinker => clinker.SerialNumber);
-            clinker.SerialNumber = biggestExistingInt + 1;
+            var biggestExistingInt = _clinkers.Max(clinker => clinker.Id);
+            clinker.Id = biggestExistingInt + 1;
             _clinkers.Add(clinker);
         }
 
-        public Dictionary<string, List<string>> GetAllInterests()
+        /*public Dictionary<string, List<string>> GetAllInterests()
         {
             var myReturnList = new Dictionary<string, List<string>>();
             foreach (var clinker in _clinkers)
@@ -117,7 +123,7 @@ namespace ClinkedIn.DataAccess
             {
                 enemy.Enemies.Add(clinker);
             }
-        }
+        }*/
 
         public void RemoveClinker(int serialNumber)
         {
@@ -126,7 +132,7 @@ namespace ClinkedIn.DataAccess
             _clinkers.Remove(clinker);
         }
 
-        public void RemoveFriend(int serialNumber, int friendSerial)
+        /*public void RemoveFriend(int serialNumber, int friendSerial)
         {
             var clinker = Get(serialNumber);
             var friend = Get(friendSerial);
@@ -163,7 +169,7 @@ namespace ClinkedIn.DataAccess
                 RemoveFriend(serialNumber, _clinkers[i].SerialNumber);
                 RemoveEnemy(serialNumber, _clinkers[i].SerialNumber);
             }
-        }
+        }*/
 
         public int DaysLeft(int serialNumber)
         {
