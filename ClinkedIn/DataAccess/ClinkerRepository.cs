@@ -44,6 +44,50 @@ namespace ClinkedIn.DataAccess
             return clinker;
         }
 
+        public List<string> GetInterestsById(int id)
+        {
+            using var db = new SqlConnection(ConnectionString);
+            var interests = new List<string>();
+            var sql = @"Select *
+                        from ClinkerInterests
+                        where ClinkerId = @id";
+
+            var interestSql = @"Select *
+                        from Interests
+                        where Id = @interestId";
+
+            var clinkerInterests = db.Query<ClinkerInterest>(sql, new { id = id }).ToList();
+            foreach (var clinkerInterest in clinkerInterests)
+            {
+                var interest = db.QueryFirstOrDefault<Interest>(interestSql, new { interestId = clinkerInterest.InterestId });
+                interests.Add(interest.name);
+            }
+
+            return interests;
+        }
+
+        public List<string> GetListOfMyServices(int id)
+        {
+            using var db = new SqlConnection(ConnectionString);
+            var services = new List<string>();
+            var sql = @"Select *
+                        from ClinkerServices
+                        where ClinkerId = @id";
+
+            var interestSql = @"Select *
+                        from Services
+                        where Id = @serviceId";
+
+            var clinkerServices = db.Query<ClinkerService>(sql, new { id = id }).ToList();
+            foreach (var clinkerService in clinkerServices)
+            {
+                var service = db.QueryFirstOrDefault<Service>(interestSql, new { serviceId = clinkerService.ServiceId });
+                services.Add(service.Name);
+            }
+
+            return services;
+        }
+
         public void Add(Clinker clinker)
         {
             using var db = new SqlConnection(ConnectionString);

@@ -66,21 +66,16 @@ namespace ClinkedIn.Controllers
         }
 
         //GetListOfMyServices /api/clinker/services/serialNumber
-        /*[HttpGet("{serialNumber}/services")]
-        public IActionResult GetListOfMyServices(int serialNumber)
+        [HttpGet("{id}/services")]
+        public IActionResult GetListOfMyServices(int id)
         {
-            var clinker = _repo.Get(serialNumber);
+            var clinker = _repo.Get(id);
             if (clinker == null)
             {
                 return NotFound("This clinker does not exist");
             }
-            if (clinker.Services.Count == 0)
-            {
-                return NotFound($"{clinker.Name} does not have any services");
-            }
-
-            return Ok(clinker.Services);
-        }*/
+            else return Ok(_repo.GetListOfMyServices(id));
+        }
 
         //GetListOfAllServices /api/clinker/services
         [HttpGet("services")]
@@ -171,21 +166,17 @@ namespace ClinkedIn.Controllers
         // Get all User's interests
         // GET /api/Clinker/{serialNumber}/interests
 
-        /*[HttpGet("{serialNumber}/interests")]
-        public IActionResult GetInterestsById(int serialNumber)
+        [HttpGet("{id}/interests")]
+        public IActionResult GetInterestsById(int id)
         {
-            var clinker = _repo.Get(serialNumber);
+            var clinker = _repo.Get(id);
             if (clinker == null)
             {
                 return NotFound("This clinker does not exist");
             }
-            else if (clinker.Interests == null)
-            {
-                return NotFound("This clinker exists but does not have any interests yet.");
-            }
-            else return Ok(clinker.Interests);
+            else return Ok(_repo.GetInterestsById(id));
 
-        }*/
+        }
 
         // Add an interest to a user
         // PUT /api/Clinker/{serialNumber}/interests + Interest Body / This is case insensitive
