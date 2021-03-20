@@ -56,40 +56,38 @@ namespace ClinkedIn.DataAccess
             clinker.Id = id;
         }
 
-        /*public Dictionary<string, List<string>> GetAllInterests()
+        public List<Interest> GetAllInterests()
         {
-            var myReturnList = new Dictionary<string, List<string>>();
-            foreach (var clinker in _clinkers)
-            {
-                if (clinker.Interests != null) myReturnList.Add(clinker.Name, clinker.Interests);
-            }
-            return myReturnList;
+            using var db = new SqlConnection(ConnectionString);
+            var sql = @"Select *
+                        from Interests";
+
+            return db.Query<Interest>(sql).ToList();
         }
 
-        public void removeInterest(int serialNumber, string interest)
+        /*public void removeInterest(int serialNumber, string interest)
         {
             var clinker = Get(serialNumber);
             clinker.Interests.RemoveAt(clinker.Interests.FindIndex(n => n.Equals(interest, StringComparison.OrdinalIgnoreCase)));
-        }
+        }*/
 
-        public void removeService(int serialNumber, string service)
+        /*public void removeService(int serialNumber, string service)
         {
             var clinker = Get(serialNumber);
             clinker.Services.RemoveAt(clinker.Services.FindIndex(n => n.Equals(service, StringComparison.OrdinalIgnoreCase)));
-        }
+        }*/
 
-        public Dictionary<string, List<string>> GetAllServices()
+        public List<Service> GetAllServices()
         {
-            var allServices = new Dictionary<string, List<string>>();
-            foreach (var clinker in _clinkers)
-            {
-                if (clinker.Services != null) allServices.Add(clinker.Name, clinker.Services);
-            }
-            return allServices;
+            using var db = new SqlConnection(ConnectionString);
+            var sql = @"Select *
+                        from Services";
+
+            return db.Query<Service>(sql).ToList();
         }
 
         // Crew: Friends of Friends
-        public Dictionary<Clinker, List<Clinker>> GetFriendsOfFriends(Clinker clinker)
+        /*public Dictionary<Clinker, List<Clinker>> GetFriendsOfFriends(Clinker clinker)
         {
             var friendsOfFriends = new Dictionary<Clinker, List<Clinker>>();
             var clinkersFriends = clinker.Friends;
@@ -99,8 +97,8 @@ namespace ClinkedIn.DataAccess
             }
 
             return friendsOfFriends;
-        }
-        public void AddFriend(int serialNumber, int friendId)
+        }*/
+        /*public void AddFriend(int serialNumber, int friendId)
         {
             var clinker = Get(serialNumber);
             var friend = Get(friendId);
@@ -113,9 +111,9 @@ namespace ClinkedIn.DataAccess
             {
                 friend.Friends.Add(clinker);
             }
-        }
+        }*/
 
-        public void AddEnemy(int serialNumber, int enemyId)
+        /*public void AddEnemy(int serialNumber, int enemyId)
         {
             var clinker = Get(serialNumber);
             var enemy = Get(enemyId);
@@ -130,12 +128,12 @@ namespace ClinkedIn.DataAccess
             }
         }*/
 
-        public void RemoveClinker(int serialNumber)
+        /*public void RemoveClinker(int serialNumber)
         {
             var clinker = Get(serialNumber);
 
             _clinkers.Remove(clinker);
-        }
+        }*/
 
         /*public void RemoveFriend(int serialNumber, int friendSerial)
         {
