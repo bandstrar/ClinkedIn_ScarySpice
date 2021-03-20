@@ -83,11 +83,11 @@ namespace ClinkedIn.Controllers
         }*/
 
         //GetListOfAllServices /api/clinker/services
-        /*[HttpGet("services")]
+        [HttpGet("services")]
         public IActionResult GetListOfAllServices()
         {
             return Ok(_repo.GetAllServices());
-        }*/
+        }
 
         // API Post to /api/Clinker
         [HttpPost]
@@ -162,11 +162,11 @@ namespace ClinkedIn.Controllers
         // GET all the users and their interests
         // GET All + return only names and interests
         // /api/Clinker/interests
-        /*[HttpGet("interests")]
+        [HttpGet("interests")]
         public IActionResult GetAllClinkersInterests()
         {
             return Ok(_repo.GetAllInterests());
-        }*/
+        }
 
         // Get all User's interests
         // GET /api/Clinker/{serialNumber}/interests
