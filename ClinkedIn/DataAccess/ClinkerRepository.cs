@@ -46,9 +46,14 @@ namespace ClinkedIn.DataAccess
 
         public void Add(Clinker clinker)
         {
-            var biggestExistingInt = _clinkers.Max(clinker => clinker.Id);
-            clinker.Id = biggestExistingInt + 1;
-            _clinkers.Add(clinker);
+            using var db = new SqlConnection(ConnectionString);
+            var sql = @"INSERT INTO [Clinkers] ([Name],[DaysRemaining])
+                        OUTPUT inserted.Id
+                        VALUES(@Name, @DaysRemaining)";
+
+            var id = db.ExecuteScalar<int>(sql, clinker);
+
+            clinker.Id = id;
         }
 
         /*public Dictionary<string, List<string>> GetAllInterests()

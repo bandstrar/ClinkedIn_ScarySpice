@@ -65,8 +65,8 @@ namespace ClinkedIn.Controllers
             return Ok(clinker);
         }
 
-      /*  //GetListOfMyServices /api/clinker/services/serialNumber
-        [HttpGet("{serialNumber}/services")]
+        //GetListOfMyServices /api/clinker/services/serialNumber
+        /*[HttpGet("{serialNumber}/services")]
         public IActionResult GetListOfMyServices(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
@@ -80,27 +80,27 @@ namespace ClinkedIn.Controllers
             }
 
             return Ok(clinker.Services);
-        }
+        }*/
 
         //GetListOfAllServices /api/clinker/services
-        [HttpGet("services")]
+        /*[HttpGet("services")]
         public IActionResult GetListOfAllServices()
         {
             return Ok(_repo.GetAllServices());
-        }
+        }*/
 
         // API Post to /api/Clinker
         [HttpPost]
         public IActionResult AddAClinker(Clinker clinker)
         {
             _repo.Add(clinker);
-            return Created($"/api/Clinker/{clinker.SerialNumber}", clinker);
+            return Created($"/api/Clinker/{clinker.Id}", clinker);
         }
 
         // Show all Clinker's friends
         // /api/clinker/{serialNumber}/friends
 
-        [HttpGet("{serialNumber}/friends")]
+        /*[HttpGet("{serialNumber}/friends")]
         public IActionResult GetFriends(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
@@ -114,11 +114,11 @@ namespace ClinkedIn.Controllers
                 return NotFound("This clinker does not have any friends. How sad.");
             }
             return Ok(clinker.Friends);
-        }
+        }*/
 
         // /api/clinker/{serialNumber}/friends/addFriend
         //Add Clinker friend
-        [HttpPut("{serialNumber}/friends/addFriend")]
+        /*[HttpPut("{serialNumber}/friends/addFriend")]
         public IActionResult AddFriend(int serialNumber, List<int> friendId)
         {
             var clinker = _repo.Get(serialNumber);
@@ -126,11 +126,11 @@ namespace ClinkedIn.Controllers
             _repo.AddFriend(serialNumber, friendId[0]);
 
             return Ok(clinker.Friends);
-        }
+        }*/
 
         // /api/clinker/{serialNumber}/enemies
         // Show all Clinker's enemies
-        [HttpGet("{serialNumber}/enemies")]
+        /*[HttpGet("{serialNumber}/enemies")]
         public IActionResult GetEnemies(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
@@ -144,12 +144,12 @@ namespace ClinkedIn.Controllers
                 return NotFound("This clinker does not have any enemies. Likely story.");
             }
             return Ok(clinker.Enemies);
-        }
+        }*/
 
         //  /api/clinker/{serialNumber}/enemies/addEnemy
         // Add Clinker enemy
 
-        [HttpPut("{serialNumber}/enemies/addEnemy")]
+        /*[HttpPut("{serialNumber}/enemies/addEnemy")]
         public IActionResult AddEnemy(int serialNumber, List<int> enemyId)
         {
             var clinker = _repo.Get(serialNumber);
@@ -157,21 +157,21 @@ namespace ClinkedIn.Controllers
             _repo.AddEnemy(serialNumber, enemyId[0]);
 
             return Ok(clinker.Enemies);
-        }
+        }*/
 
         // GET all the users and their interests
         // GET All + return only names and interests
         // /api/Clinker/interests
-        [HttpGet("interests")]
+        /*[HttpGet("interests")]
         public IActionResult GetAllClinkersInterests()
         {
             return Ok(_repo.GetAllInterests());
-        }
+        }*/
 
         // Get all User's interests
         // GET /api/Clinker/{serialNumber}/interests
 
-        [HttpGet("{serialNumber}/interests")]
+        /*[HttpGet("{serialNumber}/interests")]
         public IActionResult GetInterestsById(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
@@ -185,26 +185,26 @@ namespace ClinkedIn.Controllers
             }
             else return Ok(clinker.Interests);
 
-        }
+        }*/
 
         // Add an interest to a user
         // PUT /api/Clinker/{serialNumber}/interests + Interest Body / This is case insensitive
-        [HttpPut("{serialNumber}/interests")]
+        /*[HttpPut("{serialNumber}/interests")]
         public IActionResult EditInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
             if (clinker.Interests.FindAll(x => x.IndexOf(interests[0],
                        StringComparison.OrdinalIgnoreCase) >= 0).Count == 0)
-                
+
             {
                 clinker.Interests.AddRange(interests);
             }
-                
+
             return Ok(clinker.Interests);
-        }
+        }*/
 
         //Put /api/Clinker/{serialNumber}/interests/removeInterest + Interest Body / This is case insensitive
-        [HttpPut("{serialNumber}/interests/removeInterest")]
+        /*[HttpPut("{serialNumber}/interests/removeInterest")]
         public IActionResult DeleteInterest(int serialNumber, List<string> interests)
         {
             var clinker = _repo.Get(serialNumber);
@@ -219,11 +219,11 @@ namespace ClinkedIn.Controllers
                 return NotFound("This interest is not in the clinkers interest.");
             }
 
-        }
+        }*/
 
         // Add an Service to a user
         // PUT /api/Clinker/{serialNumber}/services + Service Body / This is case insensitive
-        [HttpPut("{serialNumber}/services")]
+        /*[HttpPut("{serialNumber}/services")]
         public IActionResult EditService(int serialNumber, List<string> services)
         {
             var clinker = _repo.Get(serialNumber);
@@ -235,10 +235,10 @@ namespace ClinkedIn.Controllers
             }
 
             return Ok(clinker.Services);
-        }
+        }*/
 
         //Put /api/Clinker/{serialNumber}/services/removeService + Service Body / This is case insensitive
-        [HttpPut("{serialNumber}/services/removeService")]
+        /*[HttpPut("{serialNumber}/services/removeService")]
         public IActionResult DeleteService(int serialNumber, List<string> services)
         {
             var clinker = _repo.Get(serialNumber);
@@ -253,12 +253,12 @@ namespace ClinkedIn.Controllers
                 return NotFound("This Service is not in the clinkers Service.");
             }
 
-        }
+        }*/
 
         // Crew: Returns friends of friends
         // /api/Clinker/{serialNumber}/friends/crew
 
-        [HttpGet("{serialNumber}/friends/crew")]
+        /*[HttpGet("{serialNumber}/friends/crew")]
         public IActionResult FriendsOfFriends(int serialNumber)
         {
             var clinker = _repo.Get(serialNumber);
