@@ -74,6 +74,10 @@ namespace ClinkedIn.Controllers
             {
                 return NotFound("This clinker does not exist");
             }
+            else if (_repo.GetListOfMyServices(id).Count == 0)
+            {
+                return NotFound("This clinker does not currently offer any services");
+            }
             else return Ok(_repo.GetListOfMyServices(id));
         }
 
@@ -173,6 +177,10 @@ namespace ClinkedIn.Controllers
             if (clinker == null)
             {
                 return NotFound("This clinker does not exist");
+            }
+            else if (_repo.GetInterestsById(id).Count == 0)
+            {
+                return NotFound("This clinker does not currently have any interests");
             }
             else return Ok(_repo.GetInterestsById(id));
 
